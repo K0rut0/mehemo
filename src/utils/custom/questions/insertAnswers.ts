@@ -2,7 +2,10 @@
 import { Question } from "@/types/database/questions"
 import { createClient } from "@/utils/supabase/server"
 
-export default async function insertAnswers(studentInformation, questionAnswers): Promise<Object>{
+export default async function insertAnswers(studentInformation, questionAnswers): Promise<{
+    success: boolean,
+    message: string
+}>{
     const client = await createClient()
     console.log(studentInformation)
     console.log(questionAnswers)
@@ -40,13 +43,17 @@ export default async function insertAnswers(studentInformation, questionAnswers)
     }
     const {error : processedDataError} = await client.from('processed_responses').insert(data)
     if(processedDataError){
-        console.log(processedDataError)
+        console.log(processedDataError.message)
+        return {
+            success: false,
+            message: processedDataError.message
+        }
     }
 
 
     console.log(sum)
     return {
         success: true,
-        message: "tite"
+        message: "Successfully inserted data"
     }
 }

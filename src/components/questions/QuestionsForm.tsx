@@ -28,6 +28,7 @@ export default function QuestionsForm({questions, setter, setEnabled}:QuestionsF
         }
     ))
     const FormSchema = z.object(
+        
         Object.fromEntries(
             ParsedSchemaTypes.map((field) => [field.name, field.fieldType])
         )
@@ -45,7 +46,6 @@ export default function QuestionsForm({questions, setter, setEnabled}:QuestionsF
     return (
         <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-y-3 flex-1 max-h-[500px] overflow-y-scroll'>
             <Form {...form}>
-                
                 {questions.map(question => (
                     <FormField 
                         control={form.control}

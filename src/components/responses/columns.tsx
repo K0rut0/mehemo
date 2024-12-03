@@ -6,7 +6,6 @@ import { CheckIcon, XIcon } from "lucide-react";
 import { ArrowUpDown } from "lucide-react"
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { object } from "zod";
 
 export const ProcessedResponseColumns: ColumnDef<ProcessedResponse>[] = [
     {
@@ -43,6 +42,19 @@ export const ProcessedResponseColumns: ColumnDef<ProcessedResponse>[] = [
         },  
         cell: ({row}) => {
             return row.getValue("summed_result")
+        }
+    },
+    {
+        header: "Interpretation",
+        cell: ({row}) => {
+            const result = parseInt(row.getValue("summed_result"))
+            if(result <= 12){
+                return <div className="text-green-400">Normal</div>
+            } else if(result > 12 && result < 25){
+                return <div className="text-orange-400">At Risk</div>
+            } else {
+                return <div className="text-red-400">At Severe Risk</div>
+            }
         }
     },
     {

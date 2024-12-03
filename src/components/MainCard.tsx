@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from './ui/card'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './ui/card'
 import StudentInfoForm from './studentInformation/StudentInfoForm'
 import {
     Carousel,
@@ -17,6 +17,8 @@ import QuestionsParent from './questions/QuestionsParent'
 import { fallbackModeToFallbackField } from 'next/dist/lib/fallback'
 import { Button } from './ui/button'
 import insertAnswers from '@/utils/custom/questions/insertAnswers'
+import { toast, useToast } from "@/hooks/use-toast"
+
 export default function MainCard() {
     const [studentInformation, setStudentInformation] = useState<StudentInfoData | null>(null)
     const [questionAnswers, setQuestionAnswers] = useState(null)
@@ -27,8 +29,21 @@ export default function MainCard() {
         }
     },[studentInformation, questionAnswers])
 
-    function submitAnswers(){
-        insertAnswers(studentInformation, questionAnswers)
+    async function submitAnswers(){
+        const data = await insertAnswers(studentInformation, questionAnswers)
+        if(data.success){
+            toast({
+                title: "Success",
+                description: "Successfully sent your answers",
+                variant: "success"
+            })
+        } else {
+            toast({
+                title: "Error",
+                description: "An error has occured while sending your answers. Please report to your admin",
+                variant: "destructive"
+            })
+        }
     }
 
     return (
@@ -72,6 +87,11 @@ export default function MainCard() {
                     </div>
                 </Carousel>
             </CardContent>
+            <CardFooter>
+                <CardDescription>
+                    Questions adopted from the <a className="text-blue-500 underline" target='_blank' href='https://www.psicothema.com/pdf/3564.pdf'>GHQ-12 Questionnaire</a>
+                </CardDescription>
+            </CardFooter>
         </Card>
     )
 }

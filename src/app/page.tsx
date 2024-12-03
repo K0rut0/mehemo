@@ -7,6 +7,7 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full items-center p-4">
       <MainCard/>
+      
     </div>
   );
 }
