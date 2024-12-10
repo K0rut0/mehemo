@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar'
 import { LayoutDashboard, ShieldCheck } from 'lucide-react'
@@ -42,7 +41,7 @@ export default function AdminSidebar() {
                 </SidebarGroupContent>
             </SidebarGroup>
             <SidebarGroup>
-                <SidebarGroupLabel>Analytics</SidebarGroupLabel>
+                <SidebarGroupLabel>Super Admin</SidebarGroupLabel>
                 <SidebarGroupContent>
                     {locations.superadmin.map((item) => (
                         <SidebarMenuItem key={item.title}>
