@@ -29,23 +29,6 @@ export default function MainCard() {
         }
     },[studentInformation, questionAnswers])
 
-    async function submitAnswers(){
-        const data = await insertAnswers(studentInformation, questionAnswers)
-        if(data.success){
-            toast({
-                title: "Success",
-                description: "Successfully sent your answers",
-                variant: "success"
-            })
-        } else {
-            toast({
-                title: "Error",
-                description: "An error has occured while sending your answers. Please report to your admin",
-                variant: "destructive"
-            })
-        }
-    }
-
     return (
         <Card className='flex flex-col md:max-w-[480px] max-w-[360px] overflow-x-hidden '>
             <CardHeader>
@@ -57,7 +40,7 @@ export default function MainCard() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <QuestionsParent setter={setQuestionAnswers} setEnabled={setEnabled}/>
+                <QuestionsParent/>
             </CardContent>
             <CardFooter>
                 <CardDescription>
