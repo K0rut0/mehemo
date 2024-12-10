@@ -3,7 +3,7 @@ import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import getIndividualResponse from '@/utils/custom/analytics/getIndividualResponse';
 import { FormResponse } from '@/types/database/response';
-import LoadingSpinner from '@/components/LoadingSpinner';
+import {LoadingSpinner} from '@/components/LoadingSpinner';
 import { Question } from '@/types/database/questions';
 import getQuestions from '@/utils/custom/questions/getQuestions';
 import { Button } from '@/components/ui/button';

@@ -1,5 +1,6 @@
 "use client"
-import LoadingSpinner from '@/components/LoadingSpinner'
+
+import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { UserApprovalColumn } from '@/components/userAppoval/columns'
 import { UserDataTable } from '@/components/userAppoval/data-table'
 import { User } from '@/types/database/user'

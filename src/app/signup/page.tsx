@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,13 +11,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "@/hooks/use-toast";
 import { signUp } from "@/utils/auth/signUp";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export default function SignUp() {
+  const router = useRouter()
+
+  const [buttonContent, setButtonContent] = useState<ReactNode>("Sign-up")
   const FormSchema = z.object({
     email: z
       .string({
@@ -53,6 +59,25 @@ export default function SignUp() {
     resolver: zodResolver(FormSchema),
   });
 
+  async function signUpUser(d){
+    setButtonContent(<LoadingSpinner />)
+    const signUpResponse = await signUp(d)
+    if(signUpResponse.success){
+      toast({
+        variant: "success",
+        title:"Success",
+        description: "Successfully signed up"
+      })
+      router.push("/login")
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "An error has occured: " + signUpResponse.message
+      })
+      setButtonContent("Sign-Up")
+    }
+  }
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-b from-blue-50 to-green-100">
       
@@ -84,7 +109,7 @@ export default function SignUp() {
 
       {/* sign-Up */}
       <form
-        onSubmit={form.handleSubmit(signUp)}
+        onSubmit={form.handleSubmit(signUpUser)}
         className="relative z-10 flex flex-col items-center w-full max-w-md p-6 space-y-6"
         style={{
           background: "rgba(255, 255, 255, 0.2)", // Semi-transparent background
@@ -202,7 +227,7 @@ export default function SignUp() {
           type="submit"
           className="w-full py-3 text-sm font-medium text-white bg-blue-600 rounded-xl hover:bg-blue-700 hover:scale-105 transition duration-300 ease-in-out"
         >
-          Sign Up
+          {buttonContent}
         </Button>
       </form>
     </div>

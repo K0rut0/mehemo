@@ -47,7 +47,7 @@ export default function MainCard() {
     }
 
     return (
-        <Card className='flex flex-col md:max-w-[480px] max-w-[360px] overflow-y-scroll overflow-x-hidden max-h-[600px]'>
+        <Card className='flex flex-col md:max-w-[480px] max-w-[360px] overflow-x-hidden '>
             <CardHeader>
                 <CardTitle>
                     MeHeMo
@@ -57,35 +57,7 @@ export default function MainCard() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <Carousel className='flex flex-col md:max-w-[480px] max-w-[360px]'
-                opts={{
-                    active: true,
-                    watchDrag: false
-                }}
-                orientation='horizontal'
-                >
-                    <CarouselContent className='flex md:max-w-[480px] max-w-[360px] p-3'>
-                        <CarouselItem>
-                            <StudentInfoForm setter={setStudentInformation} setEnabled={setEnabled}/>
-                        </CarouselItem>
-                        <CarouselItem>
-                            <QuestionsParent setter={setQuestionAnswers} setEnabled={setEnabled}/>
-                        </CarouselItem>
-                        <CarouselItem>
-                            <Button 
-                                disabled={(studentInformation != null && questionAnswers != null) ? false : true} 
-                                onClick={submitAnswers}
-                                className='w-full'
-                            > 
-                                Submit 
-                            </Button>
-                        </CarouselItem>
-                    </CarouselContent>
-                    <div className='flex justify-end md:max-w-[480px] max-w-[360px] p-3 gap-x-3'>
-                        <CustomCarouselPrev className={`bg-black text-white font-semibold w-1/2`}/>
-                        <CustomCarouselNext className={`bg-green-500 text-white font-semibold w-1/2  ${enabled ? "opacity-100" : "opacity-50"}` } disabled={!enabled}/>
-                    </div>
-                </Carousel>
+                <QuestionsParent setter={setQuestionAnswers} setEnabled={setEnabled}/>
             </CardContent>
             <CardFooter>
                 <CardDescription>

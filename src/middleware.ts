@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest){
     } = await client.auth.getUser()
     if(authError){
         console.log(authError)
-        throw new Error(authError.message)
+        return NextResponse.redirect("http://localhost:3000/login")
     }
     console.log("triggered by: ", request.nextUrl.pathname)
     const {
@@ -19,10 +19,11 @@ export async function middleware(request: NextRequest){
     } = await client.from('admin_users').select("*").eq('id', userData.user.id).single()
     if(userRoleInfoError){
         console.log(userRoleInfoError)
-        throw new Error(userRoleInfoError.message)
+        return NextResponse.redirect("http://localhost:3000/not-authenticated")
+        
     }
     if(!userRoleInfo.isApproved || userRoleInfo.adminType == 'none'){
-        return NextResponse.redirect("http://localhost:3000/")
+        return NextResponse.redirect("http://localhost:3000/not-authenticated")
     }
 }
 

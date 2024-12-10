@@ -21,7 +21,7 @@ import {
 import Test from '../Test'
 import { Course } from '@/types/database/courses'
 import getCourses from '@/utils/custom/courses/getCourses'
-import LoadingSpinner from '../LoadingSpinner'
+import { LoadingSpinner } from '../LoadingSpinner'
 import CustomSelect from '../custom/CustomSelect'
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"

@@ -1,6 +1,6 @@
 "use client"
 import React, { SetStateAction, Suspense, useEffect, useState } from 'react'
-import LoadingSpinner from '../LoadingSpinner'
+import {LoadingSpinner} from '../LoadingSpinner'
 import { Question } from '@/types/database/questions'
 import getQuestions from '@/utils/custom/questions/getQuestions'
 import QuestionsForm from './QuestionsForm'
@@ -10,7 +10,7 @@ interface QuestionsParentProps {
   setEnabled: React.Dispatch<SetStateAction<boolean>>
 }
 
-export default function QuestionsParent({setter, setEnabled}:QuestionsParentProps) {
+export default function QuestionsParent() {
   const [questions, setQuestions] = useState<Question[]>()
   const [loading, setLoading] = useState(true)
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function QuestionsParent({setter, setEnabled}:QuestionsParentProp
   }
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <QuestionsForm questions={questions} setter={setter} setEnabled={setEnabled}/>
+      <QuestionsForm questions={questions}/>
     </Suspense>
   )
 }

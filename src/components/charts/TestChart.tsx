@@ -35,10 +35,10 @@ interface BarChartProps {
 
 export function TestChart({departmentData, config}:BarChartProps) {
   return (
-    <Card className="max-w-[500px]">
+    <Card className="w-[50%]">
       <CardHeader>
-        <CardTitle>Bar Chart - Mixed</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Total Data</CardTitle>
+        <CardDescription>2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={config}>

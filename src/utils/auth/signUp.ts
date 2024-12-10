@@ -20,7 +20,15 @@ export async function signUp(data: SignUpData){
     console.log(userCredentials)
     const { data: singUpResponseData, error } = await client.auth.signUp(userCredentials)
     if(error){
-        console.log(error)
+        return({
+            success: false,
+            message: error.message
+        })
+    } else {
+        return({
+            success: true,
+            message: "Successfully signed up"
+        })
     }
 
 }

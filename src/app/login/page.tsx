@@ -1,15 +1,18 @@
 "use client";
 
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "@/hooks/use-toast";
 import { login } from "@/utils/auth/login";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export default function AdminLogin() {
+  const [buttonContent, setButtonContent] = useState<ReactNode>("Login")
   const FormSchema = z.object({
     email: z
       .string({
@@ -25,7 +28,18 @@ export default function AdminLogin() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
-
+  async function loginUser(d){
+    setButtonContent(<LoadingSpinner />)
+    const loginRes = await login(d)
+    if(!loginRes.success){
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Please check your credentials and try again"
+      })
+      setButtonContent("Login")
+    }
+  }
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-b from-blue-50 to-green-100">
       
@@ -53,7 +67,7 @@ export default function AdminLogin() {
       </div>
 
       <form
-        onSubmit={form.handleSubmit(login)}
+        onSubmit={form.handleSubmit(loginUser)}
         className="relative z-10 flex flex-col items-center w-full max-w-[360px] p-8 space-y-6"
         style={{
           background: "rgba(255, 255, 255, 0.2)",
@@ -109,7 +123,7 @@ export default function AdminLogin() {
           type="submit"
           className="w-full py-3 text-sm font-medium text-white bg-blue-600 rounded-xl hover:bg-blue-700 hover:scale-105 transition duration-300 ease-in-out"
         >
-          Login
+          {buttonContent}
         </Button>
       </form>
     </div>
